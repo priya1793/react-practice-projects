@@ -1,4 +1,6 @@
 import styled from "styled-components";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 export const Container = styled.div`
   min-height: 100vh;
@@ -207,21 +209,33 @@ export const Input = styled.input<{ $hasError?: boolean }>`
   }
 `;
 
-export const Error = styled.div`
+export const Error = styled.div<{ $show?: boolean }>`
   color: #e53e3e;
   font-size: 13px;
   font-weight: 500;
-  padding: 8px 12px;
   background: #fff5f5;
   border-radius: 8px;
   border-left: 3px solid #f56565;
   margin-top: 4px;
   width: 100%;
-  max-width: 100%; /* Constrain to parent width */
+  max-width: 100%;
   box-sizing: border-box;
-  word-wrap: break-word; /* Break long words if needed */
-  overflow-wrap: break-word; /* Modern equivalent */
-  hyphens: auto; /* Add hyphens for better wrapping */
+  display: ${(props) => (props.$show ? "block" : "none")};
+
+  p {
+    margin: 0;
+    padding: 8px 12px;
+    word-break: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+    line-height: 1.5;
+    color: #e53e3e;
+    font-size: 13px;
+    font-weight: 500;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
 `;
 
 export const ErrorText = styled.p`
@@ -372,5 +386,90 @@ export const Icon = styled.div<{ $active?: boolean }>`
 
   &:hover {
     transform: scale(1.1);
+  }
+`;
+
+export const CharacterCounter = styled.div<{ $isValid: boolean }>`
+  font-size: 11px;
+  color: ${(props) => (props.$isValid ? "#48bb78" : "#e53e3e")};
+  text-align: right;
+  margin-top: 2px;
+  font-weight: 500;
+`;
+
+export const Timestamp = styled.div`
+  font-size: 11px;
+  color: #718096;
+  text-align: center;
+  margin-top: 15px;
+  padding-top: 15px;
+  border-top: 1px dashed #e2e8f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+`;
+
+export const AutoSaveIndicator = styled.div<{ $saved: boolean }>`
+  font-size: 11px;
+  color: ${(props) => (props.$saved ? "#48bb78" : "#e53e3e")};
+  text-align: right;
+  margin-bottom: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 4px;
+  opacity: ${(props) => (props.$saved ? 1 : 0.7)};
+  transition: opacity 0.3s ease;
+`;
+
+export const ShortcutHint = styled.div`
+  font-size: 11px;
+  color: #a0aec0;
+  margin-top: 10px;
+  padding: 8px;
+  background: #f7fafc;
+  border-radius: 6px;
+  text-align: center;
+  border: 1px dashed #e2e8f0;
+`;
+
+export const StyledDatePicker = styled(DatePicker)<{ $hasError?: boolean }>`
+  width: 100%;
+  padding: 14px 40px 14px 16px;
+  font-size: 16px;
+  border: 2px solid ${(props) => (props.$hasError ? "#feb2b2" : "#e2e8f0")};
+  border-radius: 12px;
+  background: ${(props) => (props.$hasError ? "#fff5f5" : "#f7fafc")};
+  transition: all 0.3s ease;
+  color: #2d3748;
+  font-weight: 500;
+  box-sizing: border-box;
+  font-family:
+    "Inter",
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+
+  &:hover {
+    border-color: ${(props) => (props.$hasError ? "#fc8181" : "#cbd5e0")};
+    background: white;
+  }
+
+  &:focus {
+    outline: none;
+    border-color: ${(props) => (props.$hasError ? "#f56565" : "#667eea")};
+    background: white;
+    box-shadow: ${(props) =>
+      props.$hasError
+        ? "0 0 0 3px rgba(245, 101, 101, 0.1)"
+        : "0 0 0 3px rgba(102, 126, 234, 0.1)"};
+  }
+
+  &::placeholder {
+    color: #a0aec0;
+    font-weight: 400;
+    font-size: 15px;
   }
 `;
